@@ -29,25 +29,28 @@
         </div>
       </div>
 
-      <div role="complementary" class="grid-row grid-gap print:display-none">
-        <div class="tablet:grid-col-5 desktop:grid-col-4 margin-y-2 print:display-none">
+      <div role="complementary" class="grid-row grid-gap margin-top-5 print:display-none">
+        <div class="tablet:grid-col-4 desktop:grid-col-4 display-flex flex-align-center print:display-none">
+          <h3 class="margin-0 print:display-none text-primary">Answer questions:</h3>
         </div>
-        <div class="tablet:grid-col-4 desktop:grid-col-3 display-flex flex-align-center margin-y-2 print:display-none">
-          <div>
-            <button class="usa-button usa-button--unstyled open-all" aria-controls="acc-id" @click="openAll">Open All</button>
-            /
-            <button class="usa-button usa-button--unstyled close-all" aria-controls="acc-id" @click="closeAll">Close All</button>
+        <div class="tablet:grid-col-3 desktop:grid-col-3 display-flex flex-justify flex-align-center print:display-none">
+          <div class="display-flex">
+            <h3 class="margin-0 margin-right-2 print:display-none text-primary">View results:</h3>
+          </div>
+          <div class="display-flex">
+            <button class="usa-button usa-button--unstyled open-all text-no-wrap" aria-controls="acc-id" @click="openAll">Open All</button>
+            &nbsp;/&nbsp;
+            <button class="usa-button usa-button--unstyled close-all text-no-wrap" aria-controls="acc-id" @click="closeAll">Close All</button>
           </div>
         </div>
-        <div class="grid-col margin-y-2 text-right">
+        <div class="grid-col display-flex flex-align-center flex-justify-end">
           <label
             role="status"
-            class="usa-label display-inline margin-right-1"
-            for="benefitSort">Showing {{ lifeEventBenefits.length }} related benefits sorted
-            by:</label>
+            class="usa-label display-inline margin-right-1 margin-top-0"
+            for="benefitSort">Showing {{ lifeEventBenefits.length }} <span class="long-text">related benefits sorted by</span>:</label>
           <select
             id="benefitSort"
-            class="usa-select margin-left-auto width-card display-inline-block"
+            class="usa-select margin-bottom-2 width-card display-inline-block"
             name="options"
             @change="sortChange">
             <option value="relevance" :selected="sort === 'relevance'">
@@ -61,55 +64,56 @@
       </div>
 
       <div class="grid-row grid-gap print:display-block">
-        <div class="tablet:grid-col-5 desktop:grid-col-4 desktop:position-sticky desktop:top-1 desktop:height-viewport desktop:overflow-y-auto shade radius-md ">
-          <h2 class="display-none print:display-block">Eligibility criteria</h2>
-          <h2 class="padding-left-2 print:display-none">Answer questions</h2>
-          <div>
-            <div v-if="filter">
-              <div class="margin-bottom-3" role="alert">
-                Currently viewing
-                <span
-                  class="usa-tag bg-secondary display-inline-flex margin-left-05 padding-0 usa-button-group__item">
-                  <button
-                    class="usa-tooltip usa-button usa-button--unstyled usa-button--outline usa-button--inverse text-uppercase margin-left-05 border-left border-accent-cool-light padding-x-05 font-sans-3xs"
-                    style="padding: .25rem; text-decoration: none;"
-                    :title="`Remove the ${filter} filter`"
-                    aria-label="Remove this filter"
-                    data-position="top"
-                    @click="clearFilter">
-                    <span class="text-middle text-white">{{ filter }}</span>
-                    <svg
-                      class="usa-icon text-white text-middle"
-                      aria-hidden="true"
-                      focusable="false"
-                      role="img">
-                      <use xlink:href="~/assets/img/sprite.svg#close" />
-                    </svg>
-                  </button>
-                </span>
+        <div class="tablet:grid-col-4 desktop:grid-col-4 desktop:position-sticky desktop:top-1 desktop:height-viewport desktop:overflow-y-auto margin-bottom-2">
+          <!-- <h3 class="print:display-none margin-0">Answer questions:</h3> -->
+          <div class="shade radius-md padding-2">
+            <h2 class="display-none print:display-block">Eligibility criteria</h2>
+            <div>
+              <div v-if="filter">
+                <div class="margin-bottom-3" role="alert">
+                  Currently viewing
+                  <span
+                    class="usa-tag bg-secondary display-inline-flex margin-left-05 padding-0 usa-button-group__item">
+                    <button
+                      class="usa-tooltip usa-button usa-button--unstyled usa-button--outline usa-button--inverse text-uppercase margin-left-05 border-left border-accent-cool-light padding-x-05 font-sans-3xs"
+                      style="padding: .25rem; text-decoration: none;"
+                      :title="`Remove the ${filter} filter`"
+                      aria-label="Remove this filter"
+                      data-position="top"
+                      @click="clearFilter">
+                      <span class="text-middle text-white">{{ filter }}</span>
+                      <svg
+                        class="usa-icon text-white text-middle"
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img">
+                        <use xlink:href="~/assets/img/sprite.svg#close" />
+                      </svg>
+                    </button>
+                  </span>
+                </div>
               </div>
+              <div class="margin-bottom-4 display-flex print:display-none">
+                <div class="text-primary">
+                  <svg class="usa-icon usa-icon--size-3" aria-labelledby="eligibility-section-criteria-icon-title" focusable="false"
+                    role="img">
+                    <title id="eligibility-section-criteria-icon-title">Important information</title>
+                    <use xlink:href="~/assets/img/sprite.svg#priority_high"/>
+                  </svg>
+                </div>
+                <div class="font-body-md usa-icon-list">
+                  {{ lifeEvent.eligibilityCriteriaDescription }}
+                </div>
+              </div>
+              <CriteriaGroup :life-event-criteria="lifeEvent.eligibilityCriteria" />
+              <share-results @print="openAll()" />
             </div>
-            <div class="margin-bottom-4 display-flex print:display-none">
-              <div class="text-primary">
-                <svg class="usa-icon usa-icon--size-3" aria-labelledby="eligibility-section-criteria-icon-title" focusable="false"
-                  role="img">
-                  <title id="eligibility-section-criteria-icon-title">Important information</title>
-                  <use xlink:href="~/assets/img/sprite.svg#priority_high"/>
-                </svg>
-              </div>
-              <div class="font-body-md usa-icon-list">
-                {{ lifeEvent.eligibilityCriteriaDescription }}
-              </div>
-            </div>
-            <CriteriaGroup :life-event-criteria="lifeEvent.eligibilityCriteria" />
-            <share-results @print="openAll()" />
           </div>
         </div>
-        <div class="tablet:grid-col-7 desktop:grid-col-8 print:display-block">
+        <div class="tablet:grid-col-8 desktop:grid-col-8 print:display-block">
           <div class="grid-row grid-gap print:display-block break-before-always">
-            <div class="grid-col margin-bottom-3">
+            <div class="grid-col">
               <h2 class="display-none print:display-block">Benefits</h2>
-              <h2 class="print:display-none margin-bottom-0">View results</h2>
               <span class="display-none print:display-block">
                 Showing {{ lifeEventBenefits.length }} related benefits sorted by {{ sort }}.
               </span>
@@ -302,5 +306,13 @@ export default {
 <style scoped>
 .benefit-list-move {
   transition: transform 2s;
+}
+.long-text {
+  display: inline-block;
+}
+@media (max-width: 768px) {
+  .long-text {
+    display: none;
+  }
 }
 </style>
