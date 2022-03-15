@@ -65,43 +65,39 @@ export default {
   props: {
     criteriaKey: {
       type: String,
-      default: "No key provided"
+      default: "No key provided",
     },
     label: {
       type: String,
-      default: "No label provided"
+      default: "No label provided",
     },
     type: {
       type: String,
-      default: "No type provided"
+      default: "No type provided",
     },
     values: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     criteriaGroupKey: {
       type: String,
-      default: "criteriaGroup"
+      default: "criteriaGroup",
     },
     response: {
       type: [Boolean, String],
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     ...mapGetters({
       getCriterionByEligibilityKey: "criteria/getCriterionByEligibilityKey",
-      getResponseByEligibilityKey: "criteria/getResponseByEligibilityKey",
-      doesCriterionDateMatch: "criteria/doesCriterionDateMatch"
-    })
+    }),
   },
   methods: {
     getCriterionLabel() {
-      return (
-        this.label || this.getCriterionByEligibilityKey(this.criteriaKey).label
-      )
-    }
-  }
+      return this.label || this.getCriterionByEligibilityKey(this.criteriaKey).label
+    },
+  },
 }
 </script>
 <style type="scss" scoped>

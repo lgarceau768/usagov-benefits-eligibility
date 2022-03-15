@@ -3,10 +3,8 @@
     <section class="grid-container usa-section">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-10">
-          <h1 class="font-heading-1xl margin-top-0 text-secondary">
-            Benefits by type
-          </h1>
-          <p class="usa-intro">
+          <h1 class="font-heading-lg tablet:font-heading-xl margin-top-0 text-secondary">Benefits by type</h1>
+          <p class="tablet:font-heading-lg line-height-serif-6 text-normal measure-6">
             If you know the specific type of benefit you are looking for, select it below.
           </p>
         </div>
@@ -20,12 +18,15 @@
               :key="tag.slug"
               class="usa-card desktop:grid-col-6"
               :aria-label="tag.title">
-              <nuxt-link :to="`/types/${tag.slug}`" class="display-block height-full margin-x-1" style="text-decoration: none; outline-offset: .25rem;">
+              <nuxt-link
+                :to="`/types/${tag.slug}`"
+                class="display-block height-full margin-x-1"
+                style="text-decoration: none; outline-offset: 0.25rem">
                 <Card
                   :card-title="tag.title"
                   card-title-heading-level="h2"
                   :card-container-classes="['hover:border-base-light', 'margin-x-0']"
-                  :card-body="tag.summary"/>
+                  :card-body="tag.summary" />
               </nuxt-link>
             </li>
           </ul>
@@ -36,54 +37,50 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from "lodash"
 
 export default {
   layout: "default",
-  async asyncData ({ $content }) {
-    const contentTopics = await $content('types').fetch();
-    const topics = {};
+  async asyncData({ $content }) {
+    const contentTopics = await $content("types").fetch()
+    const topics = {}
     for (const c of contentTopics) {
-      topics[_.lowerCase(c.slug)] = c;
+      topics[_.lowerCase(c.slug)] = c
     }
-    const lifeEventTags = _.chain(
-      await $content("benefits")
-        .only(['tags'])
-        .fetch()
-    )
-      .map(le => le.tags)
+    const lifeEventTags = _.chain(await $content("benefits").only(["tags"]).fetch())
+      .map((le) => le.tags)
       .flatten()
       .uniq()
       .sort()
-      .value();
+      .value()
 
-    return { lifeEventTags, topics };
+    return { lifeEventTags, topics }
   },
-  data () {
+  data() {
     return {
       lifeEventTags: [],
       topics: {},
-    };
+    }
   },
   /* istanbul ignore next */
-  head () {
+  head() {
     return {
-      title: 'Benefits by type',
-    };
+      title: "Benefits by type",
+    }
   },
   methods: {
-    mapTags (tags) {
+    mapTags(tags) {
       return tags.map((tag) => {
         if (this.topics[tag]) {
-          return this.topics[tag];
+          return this.topics[tag]
         } else {
           return {
             title: _.upperFirst(tag),
             slug: _.kebabCase(tag),
           }
         }
-      });
+      })
     },
   },
-};
+}
 </script>

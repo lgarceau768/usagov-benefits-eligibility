@@ -26,7 +26,7 @@ eligibilityCriteria:
       - deceased_buried_in_unmarked_grave
       - deceased_headstone_is_privately_purchased
       - deceased_buried_in_private_cemetery
- 
+
   - label: "About you (the person applying for benefits)"
     description: ""
     criteriaGroupKey: applicant
@@ -37,7 +37,6 @@ eligibilityCriteria:
       - applicant_funeral_reimbursment
 
 relatedKeys:
- - disability
- - late-adulthood
-
+  - disability
+  - late-adulthood
 ---

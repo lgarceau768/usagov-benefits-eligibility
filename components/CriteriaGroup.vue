@@ -22,13 +22,8 @@
         <p class="line-height-sans-4 font-sans-sm">
           {{ criteriaGroup.description }}
         </p>
-        <div
-          :id="'criteriaGroup-' + criteriaGroup.criteriaGroupKey"
-          class="margin-y-3"
-        >
-          <template
-            v-for="criterion in getCriteriaMap(criteriaGroup.criteriaKeys)"
-          >
+        <div :id="'criteriaGroup-' + criteriaGroup.criteriaGroupKey" class="margin-y-3">
+          <template v-for="criterion in getCriteriaMap(criteriaGroup.criteriaKeys)">
             <CriteriaChild
               :key="criterion.criteriaKey"
               :criteria-key="criterion.criteriaKey"
@@ -37,18 +32,14 @@
               :type="criterion.type"
               :criteria-group-key="criteriaGroup.criteriaGroupKey"
               :response="criterion.response"
-              class="margin-y-2"
-            />
+              class="margin-y-2 tablet:margin-y-3" />
           </template>
         </div>
         <p
           class="display-none text-bold"
           :class="{
-            'criteria-group-empty': hasNoResponses(
-              getCriteriaMap(criteriaGroup.criteriaKeys)
-            )
-          }"
-        >
+            'criteria-group-empty': hasNoResponses(getCriteriaMap(criteriaGroup.criteriaKeys)),
+          }">
           No eligibility criteria selected
         </p>
       </div>
@@ -62,13 +53,13 @@ export default {
   props: {
     lifeEventCriteria: {
       type: Array,
-      default: /* istanbul ignore next */ () => []
-    }
+      default: /* istanbul ignore next */ () => [],
+    },
   },
   computed: {
     ...mapGetters({
-      getCriterionByEligibilityKey: "criteria/getCriterionByEligibilityKey"
-    })
+      getCriterionByEligibilityKey: "criteria/getCriterionByEligibilityKey",
+    }),
   },
   methods: {
     getCriteriaMap(criteriaKeys) {
@@ -78,8 +69,8 @@ export default {
     },
     hasNoResponses(criteria) {
       return !criteria.map((c) => !!c.response).some((response) => response)
-    }
-  }
+    },
+  },
 }
 </script>
 <style type="scss" scoped>
