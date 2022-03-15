@@ -52,7 +52,7 @@ export default {
       return ''
     },
     inputClass() {
-      return `usa-input usa-input${this.response === null ? '': this.response === false ? '--error': '--success' } ${this.selectedStyle}`
+      return `usa-input usa-input${this.response === null ? '': this.response === false ? '--error': '--success' }`
     }
   },
   mounted() {
